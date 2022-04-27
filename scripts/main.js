@@ -10,9 +10,32 @@ $(function () {
   $('.team__slider').slick({
     arrows: false,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     draggable: false,
     appendArrows: $('.team__arrows'),
+    dots: true,
+    appendDots: $('.team__slide-dots'),
+    responsive: [
+      {
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 750,
+        settings: {
+          slidesToShow: 2,
+        }
+      },
+      {
+        breakpoint: 550,
+        settings: {
+          slidesToShow: 1,
+          draggable: true,
+        }
+      }
+    ]
   })
   $('.team__arrow-prev').on('click', function (e) {
     e.preventDefault()
@@ -26,7 +49,16 @@ $(function () {
   $('.testimonials__slider').slick({
     arrows: false,
     dots: true,
+    draggable: false,
     appendDots: ('.testimonials__dots'),
+    responsive: [
+      {
+        breakpoint: 700,
+        settings: {
+          draggable: true,
+        }
+      }
+    ]
   })
   $('.testimonials__arrow-prev').on('click', function (e) {
     e.preventDefault()
@@ -57,5 +89,22 @@ $(function () {
       top = $(id).offset().top - 200
     $('body,html').animate({ scrollTop: top }, 700)
   });
+  setInterval(() => {
+    if ($(window).scrollTop() > 0 && ($('.header__top').hasClass('header__top-open')) === false) {
+      $('.burger').addClass('burger__follow')
+    } else {
+      $('.burger').removeClass('burger__follow')
+    }
+  }, 0);
+  $('.burger, .overley, .header__top-inner a').on('click', function (e) {
+    e.preventDefault()
+    $('.header__top').toggleClass('header__top-open')
+    $('.burger').toggleClass('burger--open')
+    $('.overley').toggleClass('overley--show')
+  })
 
+  $('.footer__top-title').on('click', function () {
+    $(this).next().slideToggle()
+    $(this).toggleClass('footer__top-title--active')
+  })
 });
